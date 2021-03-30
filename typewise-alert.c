@@ -4,6 +4,7 @@
 CoolingTypeLimits Limits[] ={{PASSIVE_COOLING,0,35},{HI_ACTIVE_COOLING,0,45},{MED_ACTIVE_COOLING,0,40}};
 
 void (*display_arr[])(const char*) ={Display_ForNormal,Display_FortooHigh,Display_FortooLow};
+void (*target_arr[])(BreachType) ={sendToController,sendToEmail};
 
 BreachType inferBreach(double value, double lowerLimit, double upperLimit) {
   if(value < lowerLimit) {
@@ -26,15 +27,8 @@ void checkAndAlert(
   BreachType breachType = classifyTemperatureBreach(
     batteryChar.coolingType, temperatureInC
   );
-
-  switch(alertTarget) {
-    case TO_CONTROLLER:
-      sendToController(breachType);
-      break;
-    case TO_EMAIL:
-      sendToEmail(breachType);
-      break;
-  }
+    (*target_arr[alertTarget])(breachType);
+  
 }
 
 void sendToController(BreachType breachType) {
