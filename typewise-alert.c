@@ -3,6 +3,8 @@
 
 CoolingTypeLimits Limits[] ={{PASSIVE_COOLING,0,35},{HI_ACTIVE_COOLING,0,45},{MED_ACTIVE_COOLING,0,40}};
 
+void (*display_arr[])(const char*) ={Display_ForNormal,Display_FortooHigh,Display_FortooLow};
+
 BreachType inferBreach(double value, double lowerLimit, double upperLimit) {
   if(value < lowerLimit) {
     return TOO_LOW;
@@ -40,18 +42,27 @@ void sendToController(BreachType breachType) {
   printf("%x : %x\n", header, breachType);
 }
 
+
+void Display_ForNormal(const char* recepient)
+{
+    printf("To: %s\n", recepient);
+    printf("Hi, the temperature is normal\n");
+}
+
+void Display_FortooHigh(const char* recepient)
+{
+    printf("To: %s\n", recepient);
+    printf("Hi, the temperature is too high\n");
+}
+
+void Display_FortooLow(const char* recepient)
+{
+    printf("To: %s\n", recepient);
+    printf("Hi, the temperature is too low\n");
+}
+
 void sendToEmail(BreachType breachType) {
   const char* recepient = "a.b@c.com";
-  switch(breachType) {
-    case TOO_LOW:
-      printf("To: %s\n", recepient);
-      printf("Hi, the temperature is too low\n");
-      break;
-    case TOO_HIGH:
-      printf("To: %s\n", recepient);
-      printf("Hi, the temperature is too high\n");
-      break;
-    case NORMAL:
-      break;
-  }
+    (*display_arr[breachType])(recepient);
+  
 }
