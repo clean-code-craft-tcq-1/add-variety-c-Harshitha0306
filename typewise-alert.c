@@ -1,7 +1,7 @@
 #include "typewise-alert.h"
 #include <stdio.h>
 
-CoolingTypeLimits Limits[] ={(PASSIVE_COOLING,0,35),(HI_ACTIVE_COOLING,0,45),(MED_ACTIVE_COOLING,0,40)};
+CoolingTypeLimits Limits[] ={{PASSIVE_COOLING,0,35},{HI_ACTIVE_COOLING,0,45},{MED_ACTIVE_COOLING,0,40}};
 
 BreachType inferBreach(double value, double lowerLimit, double upperLimit) {
   if(value < lowerLimit) {
