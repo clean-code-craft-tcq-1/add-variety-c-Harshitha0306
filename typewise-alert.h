@@ -1,4 +1,21 @@
+/*
+ ***************************************************************************************************
+ * Author:             Harshitha Subramani
+ * Date:               30/03/2021
+ * Filename:           typewise-alert.c
+ *****************************************************************************************************
+*
+***************************************************************************************
+* Includes
+***************************************************************************************
+*/
 #pragma once
+
+/*
+***************************************************************************************
+* Declarations
+***************************************************************************************
+*/
 
 typedef enum {
   PASSIVE_COOLING,
@@ -33,8 +50,7 @@ typedef struct {
 
 
 
-void checkAndAlert(
-  AlertTarget alertTarget, BatteryCharacter batteryChar, double temperatureInC);
+void checkAndAlert(AlertTarget alertTarget, BatteryCharacter batteryChar, double temperatureInC);
 
 void Display_ForNormal(const char* recepient);
 void Display_FortooHigh(const char* recepient);
