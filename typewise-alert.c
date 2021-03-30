@@ -55,8 +55,7 @@ void checkAndAlert(
     (*target_arr[alertTarget])(breachType);
   
 }
-/*This Function sends alert message to Contro
- ller when there is temperature breach based on Cooling type*/
+/*This Function sends alert message to Controller when there is temperature breach based on Cooling type*/
 
 void sendToController(BreachType breachType) {
   const unsigned short header = 0xfeed;
@@ -79,7 +78,7 @@ void Display_FortooHigh(const char* recepient)
     printf("Hi, the temperature is too high\n");
 }
 
-/*This Function displays that temperature is too high*/
+/*This Function displays that temperature is too low*/
 
 void Display_FortooLow(const char* recepient)
 {
