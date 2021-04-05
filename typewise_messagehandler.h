@@ -21,21 +21,40 @@
 ***************************************************************************************
 */
 
-void checkAndAlert(
+typedef enum {
+  TO_CONTROLLER,
+  TO_EMAIL,
+  TO_CONSOLE
+} AlertTarget;
+
+typedef struct {
+  CoolingType coolingType;
+  char brand[48];
+} BatteryCharacter;
+
+typedef enum {
+    StatusToController,
+    StatusToEmail_Normal,
+    StatusToEmail_TooLow,
+    StatusToEmail_TooHigh,
+    StatusToConsole
+}Received_MessageTarget;
+
+Received_MessageTarget checkAndAlert(
   AlertTarget alertTarget, BatteryCharacter batteryChar, double temperatureInC);
 
-void DisplayMessage_ForNormal(const char* recepient);
-void DisplayMessage_FortooHigh(const char* recepient);
-void DisplayMessage_FortooLow(const char* recepient);
-
-void sendToController(BreachType breachType);
-void sendToEmail(BreachType breachType);
-void sendToConsole(BreachType breachType);
 
 
-void (*display_arr[])(const char*) ={DisplayMessage_ForNormal,DisplayMessage_FortooHigh,DisplayMessage_FortooLow};
+Received_MessageTarget DisplayMessage_ForNormal(const char* recepient);
+Received_MessageTarget DisplayMessage_FortooHigh(const char* recepient);
+Received_MessageTarget DisplayMessage_FortooLow(const char* recepient);
 
-void (*target_arr[])(BreachType) = {sendToController,sendToEmail,sendToConsole};
+Received_MessageTarget sendToController(BreachType breachType);
+Received_MessageTarget sendToEmail(BreachType breachType);
+Received_MessageTarget sendToConsole(BreachType breachType);
+
+
+
 
 
 #endif /* typewise_messagehandler_h */
