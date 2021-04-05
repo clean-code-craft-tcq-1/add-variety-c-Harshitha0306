@@ -1,4 +1,23 @@
+/*
+ ***************************************************************************************************
+ * Author:             Harshitha Subramani
+ * Date:               30/03/2021
+ * Filename:           typewise-alert.c
+ *****************************************************************************************************
+*
+***************************************************************************************
+* Includes
+***************************************************************************************
+*/
+#ifndef typewise_alert_h
+#define typewise_alert_h
 #pragma once
+
+/*
+***************************************************************************************
+* Declarations
+***************************************************************************************
+*/
 
 typedef enum {
   PASSIVE_COOLING,
@@ -15,18 +34,15 @@ typedef enum {
 BreachType inferBreach(double value, double lowerLimit, double upperLimit);
 BreachType classifyTemperatureBreach(CoolingType coolingType, double temperatureInC);
 
-typedef enum {
-  TO_CONTROLLER,
-  TO_EMAIL
-} AlertTarget;
+
 
 typedef struct {
-  CoolingType coolingType;
-  char brand[48];
-} BatteryCharacter;
+    CoolingType coolingType;
+    int lowerLimit;
+    int upperLimit;
+}CoolingTypeLimits;
 
-void checkAndAlert(
-  AlertTarget alertTarget, BatteryCharacter batteryChar, double temperatureInC);
+#endif
 
-void sendToController(BreachType breachType);
-void sendToEmail(BreachType breachType);
+
+
