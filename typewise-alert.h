@@ -2,7 +2,7 @@
  ***************************************************************************************************
  * Author:             Harshitha Subramani
  * Date:               30/03/2021
- * Filename:           typewise-alert.h
+ * Filename:           typewise-alert.c
  *****************************************************************************************************
 *
 ***************************************************************************************
@@ -50,11 +50,5 @@ typedef struct {
 
 
 
-void checkAndAlert(AlertTarget alertTarget, BatteryCharacter batteryChar, double temperatureInC);
 
-void Display_ForNormal(const char* recepient);
-void Display_FortooHigh(const char* recepient);
-void Display_FortooLow(const char* recepient);
 
-void sendToController(BreachType breachType);
-void sendToEmail(BreachType breachType);
