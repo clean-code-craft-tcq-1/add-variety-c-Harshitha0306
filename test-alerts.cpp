@@ -3,6 +3,7 @@
 #include "test/catch.hpp"
 
 #include "typewise-alert.h"
+#include "typewise_messagehandler.h"
 
 
 TEST_CASE("infers the breach according to temperature lower than limits") {
@@ -29,3 +30,27 @@ TEST_CASE("Checks Temperarture breach based on Med-Active cooling type") {
   REQUIRE(classifyTemperatureBreach(MED_ACTIVE_COOLING,20) == NORMAL);
 }
 
+TEST_CASE("Check and alert Target Controller for MED_ACTIVE_COOLING type with too low temperature ") {
+     BatteryCharacter batterychar= {MED_ACTIVE_COOLING, "BMS Temperature"};
+    REQUIRE(checkAndAlert(TO_CONTROLLER, batterychar,-1) == StatusToController);
+}
+
+TEST_CASE("Check and alert Target Console for PASSIVE_COOLING type with too high temperature") {
+     BatteryCharacter batterychar= {PASSIVE_COOLING, "BMS Temperature"};
+    REQUIRE(checkAndAlert(TO_CONSOLE, batterychar,45) == StatusToConsole);
+}
+
+TEST_CASE("Check and alert Target Email for HI-Active cooling type with too low temperature ") {
+     BatteryCharacter batterychar = {HI_ACTIVE_COOLING, "BMS Temperature"};
+    REQUIRE(checkAndAlert(TO_EMAIL, batterychar,-5) == StatusToEmail_TooLow);
+}
+
+TEST_CASE("Check and alert Target Email for MED_ACTIVE_COOLING cooling type with too high temperature ") {
+     BatteryCharacter batterychar= {MED_ACTIVE_COOLING, "BMS Temperature"};
+    REQUIRE(checkAndAlert(TO_EMAIL, batterychar,100) == StatusToEmail_TooHigh);
+}
+
+TEST_CASE("Check and alert Target Email for MED_ACTIVE_COOLING cooling type with  temperature in limits") {
+     BatteryCharacter batterychar= {MED_ACTIVE_COOLING, "BMS Temperature"};
+    REQUIRE(checkAndAlert(TO_EMAIL, batterychar,30) == StatusToEmail_Normal);
+}
